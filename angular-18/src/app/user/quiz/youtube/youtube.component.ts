@@ -53,7 +53,7 @@ export class YoutubeComponent {
     const url = 'https://www.googleapis.com/youtube/v3/search';
     const urlParams = new HttpParams()
       .set('part', 'snippet')
-      .set('key', 'AIzaSyC7gwTFPTMFnCGym6SZpXgDJAcCO-hO0sU')
+      .set('key', 'XXXXXXXXXXX')
       .set('q', this.search.keyword)
       .set('type', this.search.type)
       .set('channelId', this.search.channelId)
