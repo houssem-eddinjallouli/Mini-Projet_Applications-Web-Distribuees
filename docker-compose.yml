@@ -1,0 +1,88 @@
+version: "2.2"
+
+services:
+
+
+  job-service:
+
+    container_name: job-service
+
+    image: "job-service"
+
+    build: .\MS-job
+
+    ports:
+
+      - "8082:8082"
+
+    hostname: job-service
+
+    environment:
+
+      - SPRING_DATASOURCE_URL=jdbc:mysql://docker-mysql:3306/DBJobs?autoReconnect=true&useSSL=false
+
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http:// discovery-service:8761/eureka/
+
+        depends_on:
+
+      - discovery-service
+
+      - docker-mysql
+
+
+
+    docker-mysql
+
+    image: "mysql:5.6"
+
+    environment:
+
+      - MYSQL_ROOT_PASSWORD=admin
+
+      - MYSQL_DATABASE=admin
+
+    ports:
+
+      - 3308:3306
+
+
+
+  Candidat-service:
+
+    container_name: candidat-service
+
+    image: "candidat-service"
+
+    build: .\MS-candidat
+
+    ports:
+
+      - "8081:8081"
+
+    hostname: candidat
+
+    environment:
+
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http:// discovery-service:8761/eureka/
+
+    depends_on:
+
+      - discovery-service
+
+discovery-service:
+
+  container_name: discovery-service
+
+  build: .\Eureka-Server
+
+  ports:
+
+    - "8761:8761"
+
+  hostname: eureka
+
+    image: "eureka"
+
+    environment:
+
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
