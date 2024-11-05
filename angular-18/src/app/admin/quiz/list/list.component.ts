@@ -24,31 +24,46 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatBadgeModule,
   ],
   template: `
-    <mat-grid-list cols="4" rowHeight="1:1" gutterSize="16px">
-  <mat-grid-tile *ngFor="let t of tests.reverse()"  >
-    <mat-card class="example-card" appearance="outlined" >
-      <mat-card-header >
-<div mat-card-avatar style="width: 100px;" [ngStyle]="{'background-color': t.active ? 'green' : 'red', 'color': 'white', 'padding': '4px 8px', 'border-radius': '4px'}">
-            {{ t.active ? 'Active' : 'Closed' }}
-          </div>        <mat-card-title>
-            {{ t.title }}
-        </mat-card-title>
+  <div class="card-container">
+  <div *ngFor="let t of tests.reverse()">
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <div 
+          mat-card-avatar 
+          [ngStyle]="{
+            'background-color': t.active ? 'green' : 'red',
+            'color': 'white', 
+            'padding': '4px 8px', 
+            'border-radius': '4px',
+            'width': '100px',
+            'text-align': 'center'
+          }">
+          {{ t.active ? 'Active' : 'Closed' }}
+        </div>
+        <mat-card-title>{{ t.title }}</mat-card-title>
         <mat-card-subtitle>
           Number of questions: {{ t.questions.length }}
         </mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image src="{{t.image}}" alt="{{ t.title }}" />
+
+      <img mat-card-image [src]="t.image" alt="{{ t.title }}" />
+
       <mat-card-content>
         <p>{{ t.description }}</p>
       </mat-card-content>
+
       <mat-card-actions>
         <button mat-raised-button color="primary" [routerLink]="['details', t.id]">View</button>
-        <button mat-raised-button color="accent" (click)="active(t.id)">Active/Inactive</button>
+        <button mat-raised-button color="accent" (click)="active(t.id)">
+          {{ t.active ? 'Deactivate' : 'Activate' }}
+        </button>
         <button mat-raised-button color="warn" (click)="openDialog(t.id)">Delete</button>
       </mat-card-actions>
     </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+  </div>
+</div>
+
+
   `,
   styleUrls: ['./list.component.css'],
 })

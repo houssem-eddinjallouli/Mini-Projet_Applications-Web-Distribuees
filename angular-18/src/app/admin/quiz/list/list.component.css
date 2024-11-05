@@ -1,9 +1,14 @@
+.card-container {
+  margin: 50px;
+  display: flex;
+  flex-wrap: wrap; /* Allows cards to wrap if the screen is too small */
+  justify-content: space-between; /* Space evenly between cards */
+  gap: 16px; /* Add space between the cards */
+}
+
 .example-card {
-    min-width: 100%;
-    min-height: 100%;
-  }
-  
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
+  width: 300px; /* Set the width of the card */
+  flex: 1 1 calc(20% - 16px); /* Each card will take up 20% of the width minus the gap */
+  margin-bottom: 16px;
+  box-sizing: border-box; /* Ensure padding and borders are included in width/height */
+}

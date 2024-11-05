@@ -1,88 +1,66 @@
-version: "2.2"
+version: '3.8'
 
 services:
-
-
-  job-service:
-
-    container_name: job-service
-
-    image: "job-service"
-
-    build: .\MS-job
-
-    ports:
-
-      - "8082:8082"
-
-    hostname: job-service
-
+  docker-mysql:
+    image: mysql:8.0
+    restart: unless-stopped
     environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: houssemino
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
 
-      - SPRING_DATASOURCE_URL=jdbc:mysql://docker-mysql:3306/DBJobs?autoReconnect=true&useSSL=false
 
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http:// discovery-service:8761/eureka/
 
-        depends_on:
-
-      - discovery-service
-
+  discovery-service:
+    container_name: discovery-service
+    build: ./eureka
+    #image: "eureka"
+    restart: on-failure
+    ports:
+      - "8090:8090"
+    hostname: eureka
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8090/eureka/
+    networks:
+      - app-network
+    depends_on:
       - docker-mysql
 
-
-
-    docker-mysql
-
-    image: "mysql:5.6"
-
-    environment:
-
-      - MYSQL_ROOT_PASSWORD=admin
-
-      - MYSQL_DATABASE=admin
-
+  api-gateway:
+    restart: on-failure
+    container_name: api-gateway
+    build: ./api-gateway
     ports:
-
-      - 3308:3306
-
-
-
-  Candidat-service:
-
-    container_name: candidat-service
-
-    image: "candidat-service"
-
-    build: .\MS-candidat
-
-    ports:
-
-      - "8081:8081"
-
-    hostname: candidat
-
+      - "8099:8099"
     environment:
-
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http:// discovery-service:8761/eureka/
-
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8090/eureka/
+    networks:
+      - app-network
     depends_on:
-
       - discovery-service
 
-discovery-service:
-
-  container_name: discovery-service
-
-  build: .\Eureka-Server
-
-  ports:
-
-    - "8761:8761"
-
-  hostname: eureka
-
-    image: "eureka"
-
+  microservice-quiz:
+    restart: on-failure
+    container_name: microservice-quiz
+    build: ./microservice-quiz
+    ports:
+      - "8092:8092"
     environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8090/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://docker-mysql:3306/Quiz?autoReconnect=true&useSSL=false
+    networks:
+      - app-network
+    depends_on:
+      - discovery-service
+      - docker-mysql
 
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
+networks:
+  app-network:
+    driver: bridge
+
+
+volumes:
+  db:
