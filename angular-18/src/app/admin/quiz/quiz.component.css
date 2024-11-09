@@ -1,0 +1,40 @@
+.nav {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .nav-item {
+    margin-right: 20px;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    background-color: #e9ecef;
+    color: #333;
+    transition: background-color 0.3s;
+  }
+  
+  .nav-link:hover {
+    background-color: #dee2e6;
+  }
+  
+  .nav-link.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .tab-content {
+    padding: 20px;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+  }
+
+  .mat-tab-group {
+    margin-bottom: 48px;
+  }
+  
+  

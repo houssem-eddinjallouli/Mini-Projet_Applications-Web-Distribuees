@@ -1,0 +1,116 @@
+.photo-container {
+    max-width: 100%; /* Ensure the container does not exceed the width of its parent */
+    max-height: 400px; /* Set a maximum height for the container */
+    overflow: hidden; /* Hide any overflow content */
+  }
+  
+  .photo-container img {
+    width: auto; /* Allow the image to resize proportionally */
+    max-width: 100%; /* Ensure the image does not exceed the width of its container */
+    max-height: 100%; /* Ensure the image does not exceed the height of its container */
+    display: block; /* Ensure the image is displayed as a block element */
+    margin: auto; /* Center the image horizontally */
+  }
+  
+  .timer-container {
+    display: flex;
+    align-items: center;
+}
+
+.question-animation {
+    animation-name: slideInFromLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-50%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.list-group button {
+    opacity: 0;
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cont {
+    width: 100px; /* Adjust the width to fit the container */
+    height: 100px; /* Adjust the height to fit the container */
+    position: relative; /* Change position to relative */
+    text-align: center; /* Center the text horizontally */
+    font-weight: bold; /* Keep font-weight if needed */
+    border: 2px solid #aaa; /* Add border for the circle */
+    border-radius: 50%; /* Make it a circle */
+    overflow: hidden; /* Hide overflow content */
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px; /* Adjust size of spinner */
+    height: 50px; /* Adjust size of spinner */
+    transform: translate(-50%, -50%);
+    transform-origin: 0 0;
+    background-image: linear-gradient(black, transparent);
+    animation: spin 1s infinite linear;
+}
+
+.number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px; /* Adjust font size */
+    line-height: 100px; /* Adjust line height */
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Grey overlay */
+    z-index: 9999; /* Ensure it's above other content */
+    animation: fadeOut 5s forwards; /* Fade out animation */
+}
+
+.middle-position {
+    position: fixed;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
