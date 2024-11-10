@@ -66,6 +66,20 @@ services:
     volumes:
       - quiz-db-data:/app/Database/Data
 
+  microservice-inscriptions:
+    restart: on-failure
+    container_name: microservice-inscriptions
+    build: ./microservice-inscriptions
+    ports:
+      - "8093:8093"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8090/eureka/
+    networks:
+      - app-network
+    depends_on:
+      - discovery-server
+    volumes:
+      - inscription-db-data:/app/Database/Data
 
 
   website-angular:
@@ -83,6 +97,8 @@ networks:
 
 volumes:
   quiz-db-data: 
+    driver: local
+  inscription-db-data: 
     driver: local
   keycloak_data:
     driver: local

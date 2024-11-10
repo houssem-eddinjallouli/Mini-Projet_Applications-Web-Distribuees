@@ -38,7 +38,7 @@ import { MatBadgeModule } from '@angular/material/badge';
             'width': '100px',
             'text-align': 'center'
           }">
-          {{ t.active ? 'Active' : 'Closed' }}
+          {{ t.active ? 'Active' : 'is Clawsed' }}
         </div>
         <mat-card-title>{{ t.title }}</mat-card-title>
         <mat-card-subtitle>

@@ -28,6 +28,18 @@ spring:
             - RemoveRequestHeader=Cookie
             - PreserveHostHeader=true
 
+
+        - id: microservice-inscriptions
+          uri: lb://microservice-inscriptions
+          predicates:
+            - Path=/microservice-inscriptions/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - PreserveHostHeader=true
+
+
+
+
   security:
     oauth2:
       resource-server:
