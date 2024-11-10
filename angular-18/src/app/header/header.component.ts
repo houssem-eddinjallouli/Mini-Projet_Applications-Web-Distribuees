@@ -4,6 +4,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDividerModule} from '@angular/material/divider';
+import { KeycloakService } from '../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-header',
@@ -26,13 +27,18 @@ import {MatDividerModule} from '@angular/material/divider';
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     <mat-icon>share</mat-icon>
   </button>
+
+  <button (click)="endsession()" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
 </mat-toolbar>
 <mat-divider></mat-divider>
   `,
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  constructor(private router: Router) {}
+
+  constructor(private router: Router, private keycloakService: KeycloakService) {}
   showNavbar = false;
   showSidebar = false;
   showFooter = false;
@@ -48,5 +54,9 @@ export class HeaderComponent {
         this.showFooter = routeData['showFooter'] ?? false;
       }
     });
+    }
+
+    async endsession() {
+      this.keycloakService.logout();
     }
 }

@@ -13,9 +13,9 @@ export class KeycloakService {
   get keycloak() { 
     if (!this._keycloak) {
       this._keycloak = new Keycloak({
-        url: 'http://localhost:9009',
-        realm: 'JobBoardKeyclock',
-        clientId: 'houssem-client'
+        url: 'http://localhost:9090',
+        realm: 'group-six-cleubs',
+        clientId: 'cleubs'
       });
     } 
     return this._keycloak;
@@ -27,17 +27,25 @@ export class KeycloakService {
 
   constructor() { }
 
-  async init():Promise<void>{
+  async init(): Promise<void>{
     console.log("Authentification The User...");
-    const authenticated: boolean = await this.keycloak?.init({
-      onLoad: 'login-required'
+    const authenticated = await this.keycloak.init({
+      onLoad: 'login-required',
+      //checkLoginIframe: false
     });
     if (authenticated){
       console.log("User Authentificated ");
-      this._profile = ( await this.keycloak?.loadUserProfile()) as UserProfile;
-      this._profile.token = this.keycloak?.token || '';
+      this._profile = (await this.keycloak.loadUserProfile()) as UserProfile;
+    this._profile.token = this.keycloak.token || '';
     }
   }
+
+  async refreshTokenIfNeeded(): Promise<void> {
+    if (this.keycloak && this.keycloak.isTokenExpired()) {
+      await this.keycloak.updateToken(60); 
+    }
+  }
+  
   
   login(){
     return this.keycloak?.login();
@@ -46,4 +54,8 @@ export class KeycloakService {
   logout(){
     return this.keycloak?.logout({redirectUri: 'http://localhost:4200'});
   }
+
+  // logout(): void {
+  //   this.keycloak?.logout({ redirectUri: window.location.origin });
+  // }
 }

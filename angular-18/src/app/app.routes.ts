@@ -17,7 +17,8 @@ export const routes: Routes = [
     { path: 'welcome', component: WelcomeComponent } ,
     { 
         path: 'admin', 
-        component: AdminComponent,  
+        component: AdminComponent,
+        //canActivate: ['user'],
         children: [
           { path: '', redirectTo: '/admin/home', pathMatch: 'full' } ,
           { path: 'home', component: AdminHomeComponent } ,

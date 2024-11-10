@@ -22,17 +22,19 @@ public class SecurityConfig {
                             config.setAllowCredentials(true);
                             config.addAllowedOrigin("http://localhost:4200");
                             config.addAllowedHeader("*");
+                            config.addExposedHeader("Authorization");
                             config.addAllowedMethod(HttpMethod.GET);
                             config.addAllowedMethod(HttpMethod.POST);
                             config.addAllowedMethod(HttpMethod.PUT);
                             config.addAllowedMethod(HttpMethod.DELETE);
                             return config;
                         }))
-                .authorizeExchange(exchange-> exchange
-                        .pathMatchers("/eureka/**")
-                        .permitAll()
-                        .anyExchange()
-                        .authenticated())
+                .authorizeExchange(exchange -> exchange
+//                        .pathMatchers("/eureka/**")
+//                        .permitAll()
+//                        .anyExchange()
+//                        .authenticated())
+                        .anyExchange().permitAll())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
 
         return serverHttpSecurity.build();

@@ -9,7 +9,8 @@ import { Question, Quiz, Test } from '../models/quiz';
 export class InteractiveQuizService {
   private apiUrl = 'https://api.pexels.com/v1/';
   private apiKey = '3HmjnHyURxliuydjkOoYf50Pd1oOdNifZv9JW6IY';
-  private apiServerUrl = 'http://localhost:8092/quiz';
+  private apiServerUrl = 'http://localhost:8099/microservice-quiz/quiz';
+          
 
 
   constructor(private http: HttpClient, private router: Router) {}

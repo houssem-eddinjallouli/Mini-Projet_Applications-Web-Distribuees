@@ -8,5 +8,5 @@ RUN mvn clean package -DskipTests
 # Use a lightweight OpenJDK image to run the JAR
 FROM openjdk:17-jdk-slim
 COPY --from=build /app/target/*.jar app.jar
-EXPOSE 8099
+EXPOSE 8888
 ENTRYPOINT ["java", "-jar", "/app.jar"]
