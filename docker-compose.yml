@@ -23,16 +23,39 @@ services:
     networks:
       - app-network
 
+  postgresql:
+    container_name: postgresql
+    image: postgres
+    environment:
+      POSTGRES_USER: houssemino
+      POSTGRES_PASSWORD: houssemino
+      POSTGRES_DB: product_db
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    restart: unless-stopped
+
   python-microservice:
     build: ./news
     volumes:
       - ./news:/usr/src/app
     ports:
-      - "5001:80"
+      - "5001:5001"
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8090/eureka/
+      - POSTGRES_USER=houssemino
+      - POSTGRES_PASSWORD=houssemino
+      - POSTGRES_DB=product_db
+      - POSTGRES_HOST=postgresql
+      - POSTGRES_PORT=5432
     networks:
       - app-network
+    depends_on:
+      - postgresql
 
   keycloak:
     container_name: keycloak
@@ -102,3 +125,4 @@ volumes:
     driver: local
   keycloak_data:
     driver: local
+  postgres:

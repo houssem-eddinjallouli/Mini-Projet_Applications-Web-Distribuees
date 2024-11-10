@@ -10,6 +10,8 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AvailabletestsComponent } from './user/quiz/availabletests/availabletests.component';
 import { StudyComponent } from './user/quiz/study/study.component';
 import { PassatestComponent } from './user/quiz/passatest/passatest.component';
+import { ManefuserComponent } from './user/manefuser/manefuser.component';
+import { ManefadminComponent } from './admin/manefadmin/manefadmin.component';
 
 
 export const routes: Routes = [
@@ -18,13 +20,14 @@ export const routes: Routes = [
     { 
         path: 'admin', 
         component: AdminComponent,
-        //canActivate: ['user'],
+        //canActivate: ['admin'],
         children: [
           { path: '', redirectTo: '/admin/home', pathMatch: 'full' } ,
           { path: 'home', component: AdminHomeComponent } ,
           { path: 'quiz' , component:QuizComponent},
           { path: 'quiz/details/:id' , component:DetailsComponent},
-        //   { path: 'documents/Visa', component: VisadocumentsComponent },
+
+          { path: 'applicationstudent', component: ManefadminComponent },
         //   { path: 'documents/Incription', component: InscriptiondocumentsComponent },
         //   { path: 'documents/Bourse', component: BoursedocumentsComponent },  
         //   { path: 'paiement' , component:PaiementComponent},
@@ -32,14 +35,16 @@ export const routes: Routes = [
       },
       { 
         path: 'user', 
-        component: UserComponent,  
+        component: UserComponent,
+        //canActivate: ['user'],  
         children: [
           { path: '', redirectTo: '/user/home', pathMatch: 'full' } ,
           { path: 'home', component: UserHomeComponent } ,
           { path: 'passatest/:id', component: PassatestComponent },
           { path: 'study/:id', component: StudyComponent },
           { path: 'quiz', component: AvailabletestsComponent },
-        //   { path: 'documents' , component:DocumentsComponent},
+
+          { path: 'applicationstudent' , component:ManefuserComponent},
         //   { path: 'documents/Visa', component: VisadocumentsComponent },
         ]
       },
