@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AnasService } from '../../services/anas.service';
 
-
 @Component({
   selector: 'app-anasadmin',
   standalone: true,
@@ -18,7 +17,7 @@ import { AnasService } from '../../services/anas.service';
             <span>{{ post.content }}</span>
             <div>
               <button class="btn btn-primary btn-sm" (click)="editPost(post)">Edit</button>
-              <button class="btn btn-danger btn-sm" (click)="deletePost(post.id)">Delete</button>
+              <button class="btn btn-danger btn-sm" (click)="confirmDeletePost(post.id)">Delete</button>
             </div>
           </div>
         </li>
@@ -29,7 +28,7 @@ import { AnasService } from '../../services/anas.service';
         <li class="list-group-item" *ngFor="let reaction of reactions">
           <div class="d-flex justify-content-between align-items-center">
             <span>{{ reaction.type }}</span>
-            <button class="btn btn-danger btn-sm" (click)="deleteReaction(reaction.id)">Delete</button>
+            <button class="btn btn-danger btn-sm" (click)="confirmDeleteReaction(reaction.id)">Delete</button>
           </div>
         </li>
       </ul>
@@ -41,7 +40,7 @@ import { AnasService } from '../../services/anas.service';
             <span>{{ comment.content }}</span>
             <div>
               <button class="btn btn-primary btn-sm" (click)="editComment(comment)">Edit</button>
-              <button class="btn btn-danger btn-sm" (click)="deleteComment(comment.id)">Delete</button>
+              <button class="btn btn-danger btn-sm" (click)="confirmDeleteComment(comment.id)">Delete</button>
             </div>
           </div>
         </li>
@@ -79,23 +78,37 @@ export class AnasadminComponent implements OnInit {
     this.anasService.getAllComments().subscribe(data => this.comments = data);
   }
 
-  deletePost(id: number) {
-    this.anasService.removePost(id).subscribe(() => this.loadPosts());
+  confirmDeletePost(id: number) {
+    if (confirm('Are you sure you want to delete this post?')) {
+      this.anasService.removePost(id).subscribe(() => this.loadPosts());
+    }
   }
 
-  deleteReaction(id: number) {
-    this.anasService.removeReaction(id).subscribe(() => this.loadReactions());
+  confirmDeleteReaction(id: number) {
+    if (confirm('Are you sure you want to delete this reaction?')) {
+      this.anasService.removeReaction(id).subscribe(() => this.loadReactions());
+    }
   }
 
-  deleteComment(id: number) {
-    this.anasService.removeComment(id).subscribe(() => this.loadComments());
+  confirmDeleteComment(id: number) {
+    if (confirm('Are you sure you want to delete this comment?')) {
+      this.anasService.removeComment(id).subscribe(() => this.loadComments());
+    }
   }
 
   editPost(post: any) {
-    // Implement edit functionality
+    const newContent = prompt('Edit post content:', post.content);
+    if (newContent) {
+      post.content = newContent;
+      this.anasService.modifyPost(post).subscribe(() => this.loadPosts());
+    }
   }
 
   editComment(comment: any) {
-    // Implement edit functionality
+    const newContent = prompt('Edit comment content:', comment.content);
+    if (newContent) {
+      comment.content = newContent;
+      this.anasService.modifyComment(comment).subscribe(() => this.loadComments());
+    }
   }
 }

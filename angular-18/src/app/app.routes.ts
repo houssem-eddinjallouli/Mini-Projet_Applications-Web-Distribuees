@@ -14,6 +14,9 @@ import { ManefuserComponent } from './user/manefuser/manefuser.component';
 import { ManefadminComponent } from './admin/manefadmin/manefadmin.component';
 import { AnasuserComponent } from './user/anasuser/anasuser.component';
 import { AnasadminComponent } from './admin/anasadmin/anasadmin.component';
+import { NewsuserComponent } from './user/newsuser/newsuser.component';
+import { NewsadminComponent } from './admin/newsadmin/newsadmin.component';
+import { adminGuard, userGuard } from './services/guard/auth.guard';
 
 
 export const routes: Routes = [
@@ -22,7 +25,7 @@ export const routes: Routes = [
     { 
         path: 'admin', 
         component: AdminComponent,
-        //canActivate: ['admin'],
+        canActivate: [adminGuard],
         children: [
           { path: '', redirectTo: '/admin/home', pathMatch: 'full' } ,
           { path: 'home', component: AdminHomeComponent } ,
@@ -33,6 +36,7 @@ export const routes: Routes = [
 
           { path: 'forum', component: AnasadminComponent },
 
+          { path: 'news', component: NewsadminComponent },
         //   { path: 'documents/Bourse', component: BoursedocumentsComponent },  
         //   { path: 'paiement' , component:PaiementComponent},
         ]
@@ -40,7 +44,7 @@ export const routes: Routes = [
       { 
         path: 'user', 
         component: UserComponent,
-        //canActivate: ['user'],  
+        canActivate: [userGuard],
         children: [
           { path: '', redirectTo: '/user/home', pathMatch: 'full' } ,
           { path: 'home', component: UserHomeComponent } ,
@@ -51,8 +55,8 @@ export const routes: Routes = [
           { path: 'applicationstudent' , component:ManefuserComponent},
 
           { path: 'forum', component: AnasuserComponent },
-          
-        //   { path: 'documents/Visa', component: VisadocumentsComponent },
+
+          { path: 'news', component: NewsuserComponent },
         ]
       },
       { path: '**' , component:ForbiddenComponent},

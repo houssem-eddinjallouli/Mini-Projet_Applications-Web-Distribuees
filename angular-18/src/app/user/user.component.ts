@@ -16,6 +16,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   <span>Esprit Cleubs</span>
   <span class="example-spacer"></span>
   <button mat-flat-button routerLink="/user/home">User Dashboard</button>
+  <button mat-flat-button routerLink="/user/news">News</button>
   <button mat-flat-button routerLink="/user/quiz">Pass a Quiz</button>
   <button mat-flat-button routerLink="/user/applicationstudent">Student Application</button>
   <button mat-flat-button routerLink="/user/forum">Forum Space</button>

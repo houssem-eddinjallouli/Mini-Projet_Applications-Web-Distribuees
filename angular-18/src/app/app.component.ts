@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
+import { KeycloakService } from './services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,10 @@ import { HeaderComponent } from "./header/header.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent{
   title = 'angular-18';
+
+
+
+
 }

@@ -9,6 +9,7 @@ export class KeycloakService {
 
   private _keycloak: Keycloak | undefined;
   private _profile: UserProfile | undefined;
+  private _roles: string[] = [];
 
   get keycloak() { 
     if (!this._keycloak) {
@@ -25,20 +26,30 @@ export class KeycloakService {
     return this._profile;
    }
 
-  constructor() { }
+   get roles(): string[] {
+    return this._roles;
+  }
 
-  async init(): Promise<void>{
-    console.log("Authentification The User...");
+
+  async init(): Promise<void> {
+    console.log("Authenticating The User...");
     const authenticated = await this.keycloak.init({
       onLoad: 'login-required',
-      //checkLoginIframe: false
     });
-    if (authenticated){
-      console.log("User Authentificated ");
+
+    if (authenticated) {
+      console.log("User Authenticated");
       this._profile = (await this.keycloak.loadUserProfile()) as UserProfile;
-    this._profile.token = this.keycloak.token || '';
+      this._profile.token = this.keycloak.token || '';
+
+      // Fetch roles from Keycloak
+      const realmAccess = this.keycloak.tokenParsed?.realm_access;
+      if (realmAccess) {
+        this._roles = realmAccess.roles || [];
+      }
     }
   }
+
 
   async refreshTokenIfNeeded(): Promise<void> {
     if (this.keycloak && this.keycloak.isTokenExpired()) {
@@ -58,4 +69,12 @@ export class KeycloakService {
   // logout(): void {
   //   this.keycloak?.logout({ redirectUri: window.location.origin });
   // }
+  public isAdmin(): boolean {
+    return this._roles.includes('admin');
+  }
+
+  public isUser(): boolean {
+    return this._roles.includes('user');
+  }
+ 
 }
