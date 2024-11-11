@@ -71,18 +71,17 @@ services:
 
   event-service:
     restart: on-failure
-    container_name: event-service
     build: ./express-js-microservice
     environment:
-      - PORT=3002
       - DATABASE_URL=postgres://houssemino:houssemino@postgresql:5432/product_db
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8090/eureka/
+      - EUREKA_SERVER=http://discovery-server:8090/eureka/
     ports:
       - "3002:3002"
     networks:
       - app-network
     depends_on:
       - postgresql
+      - discovery-server
 
   keycloak:
     container_name: keycloak
