@@ -1,13 +1,17 @@
-FROM openjdk:17 AS build
+# Use an official Maven image to build the app
+FROM maven:3.8.1-openjdk-17-slim AS builder
 
-# Set the working directory
 WORKDIR /app
 
-# Copy the built JAR file into the image
-COPY target/*.jar app.jar
+COPY pom.xml .
+COPY src ./src
 
-# Expose the application port
-EXPOSE 8092
+RUN mvn clean install
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+FROM openjdk:17-jdk-slim
+
+COPY --from=builder /app/target/*.jar /eureka.jar
+
+EXPOSE 8090
+
+ENTRYPOINT ["java", "-jar", "/eureka.jar"]

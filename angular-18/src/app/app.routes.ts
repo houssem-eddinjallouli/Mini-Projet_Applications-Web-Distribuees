@@ -12,6 +12,8 @@ import { StudyComponent } from './user/quiz/study/study.component';
 import { PassatestComponent } from './user/quiz/passatest/passatest.component';
 import { ManefuserComponent } from './user/manefuser/manefuser.component';
 import { ManefadminComponent } from './admin/manefadmin/manefadmin.component';
+import { AnasuserComponent } from './user/anasuser/anasuser.component';
+import { AnasadminComponent } from './admin/anasadmin/anasadmin.component';
 
 
 export const routes: Routes = [
@@ -28,7 +30,9 @@ export const routes: Routes = [
           { path: 'quiz/details/:id' , component:DetailsComponent},
 
           { path: 'applicationstudent', component: ManefadminComponent },
-        //   { path: 'documents/Incription', component: InscriptiondocumentsComponent },
+
+          { path: 'forum', component: AnasadminComponent },
+
         //   { path: 'documents/Bourse', component: BoursedocumentsComponent },  
         //   { path: 'paiement' , component:PaiementComponent},
         ]
@@ -45,6 +49,9 @@ export const routes: Routes = [
           { path: 'quiz', component: AvailabletestsComponent },
 
           { path: 'applicationstudent' , component:ManefuserComponent},
+
+          { path: 'forum', component: AnasuserComponent },
+          
         //   { path: 'documents/Visa', component: VisadocumentsComponent },
         ]
       },

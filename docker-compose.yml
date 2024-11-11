@@ -104,6 +104,20 @@ services:
     volumes:
       - inscription-db-data:/app/Database/Data
 
+  microservice-forum:
+    restart: on-failure
+    container_name: microservice-forum
+    build: ./microservice-forum
+    ports:
+      - "8094:8094"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8090/eureka/
+    networks:
+      - app-network
+    depends_on:
+      - discovery-server
+    volumes:
+      - forum-db-data:/app/Database/Data
 
   website-angular:
     build: ./angular-18
@@ -122,6 +136,8 @@ volumes:
   quiz-db-data: 
     driver: local
   inscription-db-data: 
+    driver: local
+  forum-db-data:
     driver: local
   keycloak_data:
     driver: local

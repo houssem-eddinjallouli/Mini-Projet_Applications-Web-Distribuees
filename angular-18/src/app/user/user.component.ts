@@ -18,6 +18,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   <button mat-flat-button routerLink="/user/home">User Dashboard</button>
   <button mat-flat-button routerLink="/user/quiz">Pass a Quiz</button>
   <button mat-flat-button routerLink="/user/applicationstudent">Student Application</button>
+  <button mat-flat-button routerLink="/user/forum">Forum Space</button>
   <span class="example-spacer"></span>
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     <mat-icon>favorite</mat-icon>

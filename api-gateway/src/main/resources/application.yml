@@ -28,7 +28,6 @@ spring:
             - RemoveRequestHeader=Cookie
             - PreserveHostHeader=true
 
-
         - id: microservice-inscriptions
           uri: lb://microservice-inscriptions
           predicates:
@@ -37,6 +36,13 @@ spring:
             - RemoveRequestHeader=Cookie
             - PreserveHostHeader=true
 
+        - id: microservice-forum
+          uri: lb://microservice-forum
+          predicates:
+            - Path=/microservice-forum/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - PreserveHostHeader=true
 
 
 
