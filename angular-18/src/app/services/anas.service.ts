@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -10,7 +10,33 @@ export class AnasService {
   private apiServerUrlPost = 'http://localhost:8099/microservice-forum/post'; 
   private apiServerUrlReaction = 'http://localhost:8099/microservice-forum/reaction'; 
 
-  constructor(private http: HttpClient) {}
+  private baseUrl = 'http://localhost:8099/microservice-forum/post'; // Adjust the URL as needed
+
+  constructor(private http: HttpClient) { }
+
+  // Retrieve all posts
+  getPosts1(): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.baseUrl}/retrieve-all-posts`);
+  }
+
+  // Add a new post
+  addPost1(content: string, userId: number, image?: File): Observable<HttpResponse<Object>> {
+    const formData = new FormData();
+    formData.append('content', content);
+    if (image) {
+      formData.append('image', image, image.name);
+    }
+
+    return this.http.post<HttpResponse<Object>>(`${this.baseUrl}/add-post/${userId}`, formData, {
+      observe: 'response'
+    });
+  }
+
+  // Remove a post
+  removePost1(postId: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/remove-post/${postId}`);
+  }
+
 
   // Reaction API Methods
   getAllReactions(): Observable<any> {
@@ -95,4 +121,11 @@ export class AnasService {
   countCommentsByPost(postId: number): Observable<number> {
     return this.http.get<number>(`${this.apiServerUrlComment}/count-comments/${postId}`);
   }
+}
+export interface Post {
+  id: number;
+  createdAt: Date; 
+  content: string;
+  image: string;
+  userId: number;
 }

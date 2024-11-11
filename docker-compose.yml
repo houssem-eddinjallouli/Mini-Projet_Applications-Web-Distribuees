@@ -23,6 +23,18 @@ services:
     networks:
       - app-network
 
+  server-config:
+    container_name: server-config
+    build: ./server-config
+    ports:
+      - "8888:8888"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8090/eureka/
+    depends_on:
+      - discovery-server
+    networks:
+      - app-network
+
   postgresql:
     container_name: postgresql
     image: postgres
@@ -52,6 +64,21 @@ services:
       - POSTGRES_DB=product_db
       - POSTGRES_HOST=postgresql
       - POSTGRES_PORT=5432
+    networks:
+      - app-network
+    depends_on:
+      - postgresql
+
+  event-service:
+    restart: on-failure
+    container_name: event-service
+    build: ./express-js-microservice
+    environment:
+      - PORT=3002
+      - DATABASE_URL=postgres://houssemino:houssemino@postgresql:5432/product_db
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8090/eureka/
+    ports:
+      - "3002:3002"
     networks:
       - app-network
     depends_on:

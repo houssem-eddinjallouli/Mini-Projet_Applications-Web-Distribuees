@@ -10,13 +10,14 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AvailabletestsComponent } from './user/quiz/availabletests/availabletests.component';
 import { StudyComponent } from './user/quiz/study/study.component';
 import { PassatestComponent } from './user/quiz/passatest/passatest.component';
-import { ManefuserComponent } from './user/manefuser/manefuser.component';
-import { ManefadminComponent } from './admin/manefadmin/manefadmin.component';
+
 import { AnasuserComponent } from './user/anasuser/anasuser.component';
 import { AnasadminComponent } from './admin/anasadmin/anasadmin.component';
 import { NewsuserComponent } from './user/newsuser/newsuser.component';
 import { NewsadminComponent } from './admin/newsadmin/newsadmin.component';
 import { adminGuard, userGuard } from './services/guard/auth.guard';
+import { ManefadminComponent } from './admin/bacemadmin/manefadmin.component';
+import { ManefuserComponent } from './user/bacemuser/manefuser.component';
 
 
 export const routes: Routes = [
@@ -37,7 +38,9 @@ export const routes: Routes = [
           { path: 'forum', component: AnasadminComponent },
 
           { path: 'news', component: NewsadminComponent },
-        //   { path: 'documents/Bourse', component: BoursedocumentsComponent },  
+
+          //{ path: 'events', component: BoursedocumentsComponent },  
+
         //   { path: 'paiement' , component:PaiementComponent},
         ]
       },
@@ -57,6 +60,10 @@ export const routes: Routes = [
           { path: 'forum', component: AnasuserComponent },
 
           { path: 'news', component: NewsuserComponent },
+
+          //{ path: 'events', component: BoursedocumentsComponent }, 
+
+          //   { path: 'paiement' , component:PaiementComponent},
         ]
       },
       { path: '**' , component:ForbiddenComponent},

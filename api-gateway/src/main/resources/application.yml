@@ -44,7 +44,27 @@ spring:
             - RemoveRequestHeader=Cookie
             - PreserveHostHeader=true
 
+        - id: microservice-reservation
+          uri: lb://microservice-reservation
+          predicates:
+            - Path=/microservice-reservation/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - PreserveHostHeader=true
 
+        - id: event-service
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - PreserveHostHeader=true
+
+    config:
+      enabled: true
+      uri: http://localhost:8888
+  config:
+    import: optional:configserver:http://localhost:8888
 
   security:
     oauth2:
