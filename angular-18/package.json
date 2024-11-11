@@ -20,11 +20,14 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "angular-custom-modal": "^1.2.0",
     "bootstrap": "^5.3.3",
     "keycloak-js": "^26.0.5",
     "pexels": "^1.4.0",
     "rxjs": "~7.8.0",
+    "sweetalert2": "^11.14.5",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {

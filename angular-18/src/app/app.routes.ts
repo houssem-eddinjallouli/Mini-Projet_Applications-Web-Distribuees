@@ -10,13 +10,13 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AvailabletestsComponent } from './user/quiz/availabletests/availabletests.component';
 import { StudyComponent } from './user/quiz/study/study.component';
 import { PassatestComponent } from './user/quiz/passatest/passatest.component';
-import { ManefuserComponent } from './user/manefuser/manefuser.component';
-import { ManefadminComponent } from './admin/manefadmin/manefadmin.component';
+import { ManefuserComponent } from './user/bacemuser/bacemuser.component';
+import { ManefadminComponent } from './admin/bacemadmin/bacemadmin.component';
 import { AnasuserComponent } from './user/anasuser/anasuser.component';
-import { AnasadminComponent } from './admin/anasadmin/anasadmin.component';
 import { NewsuserComponent } from './user/newsuser/newsuser.component';
 import { NewsadminComponent } from './admin/newsadmin/newsadmin.component';
 import { adminGuard, userGuard } from './services/guard/auth.guard';
+import { ForumComponent } from './admin/anasadmin/forum.component';
 
 
 export const routes: Routes = [
@@ -34,7 +34,7 @@ export const routes: Routes = [
 
           { path: 'applicationstudent', component: ManefadminComponent },
 
-          { path: 'forum', component: AnasadminComponent },
+          { path: 'forum', component: ForumComponent },
 
           { path: 'news', component: NewsadminComponent },
         //   { path: 'documents/Bourse', component: BoursedocumentsComponent },  

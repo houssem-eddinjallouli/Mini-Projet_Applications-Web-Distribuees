@@ -29,6 +29,10 @@ enum StatusType {
             <option *ngFor="let status of statusTypes" [value]="status">{{ status }}</option>
           </select>
         </div>
+        <div class="mb-3">
+          <label for="applicationDate" class="form-label">Interview Date</label>
+          <input type="date" id="applicationDate" class="form-control" [(ngModel)]="newApplication.interviewDate" name="applicationDate" required>
+        </div>
         <button type="submit" class="btn btn-primary">Add Application</button>
       </form>
       
@@ -53,7 +57,7 @@ enum StatusType {
 })
 export class ManefadminComponent implements OnInit {
   applications$: Observable<any[]> | undefined;
-  newApplication = { applicationDate: '', status: StatusType.PENDING };
+  newApplication = { applicationDate: '', status: StatusType.PENDING, interviewDate:'' };
   statusTypes = Object.values(StatusType);
 
   constructor(private manefService: ManefService) {}
@@ -69,7 +73,7 @@ export class ManefadminComponent implements OnInit {
   addApplication(): void {
     this.manefService.addApplication(this.newApplication).subscribe(() => {
       this.fetchApplications();
-      this.newApplication = { applicationDate: '', status: StatusType.PENDING };
+      this.newApplication = { applicationDate: '', status: StatusType.PENDING,interviewDate:'' };
     });
   }
 
