@@ -1,69 +1,48 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventsService } from '../../services/events.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-eventsuser',
   standalone: true,
-  imports: [CommonModule],
+  imports: [FormsModule, CommonModule],
   template: `
-    <p>
-      events !
-    </p>
+   
 
-    <!-- Events Table -->
-    <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let event of events">
-            <td>{{ event.id }}</td>
-            <td>{{ event.name }}</td>
-            <td>{{ event.date | date: 'short' }}</td>
-            <td>{{ event.createdAt | date: 'short' }}</td>
-            <td>{{ event.updatedAt | date: 'short' }}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- No Events Message -->
-      <div *ngIf="events.length === 0" class="alert alert-info text-center mt-4">
-        No events available.
-      </div>
+    <div class="container">
+    <h3>Events</h3>
+    <ul>
+      <li *ngFor="let event of events">
+        {{ event.name }} - {{ event.date | date:'short' }}
+      </li>
+    </ul>
+    </div>
   `,
   styles: ``
 })
-export class EventsuserComponent {
+export class EventsuserComponent implements OnInit{
   events: any[] = [];
+  newEvent = { name: '', date: '' };
 
-  constructor(private eventsService: EventsService) { }
+  constructor(private eventsService: EventsService) {}
 
   ngOnInit(): void {
     this.loadEvents();
   }
 
   loadEvents(): void {
-    this.eventsService.getEvents().subscribe({
-      next: (data) => this.events = data,
-      error: (error) => console.error('Error fetching events:', error)
+    this.eventsService.getEvents().subscribe(data => {
+      this.events = data;
     });
   }
 
-  addEvent(): void {
-    const newEvent = { name: 'Sample Event', date: '2025-11-11T12:00:00Z' };
-    this.eventsService.createEvent(newEvent).subscribe({
-      next: (data) => {
-        console.log('Event created:', data);
-        this.loadEvents(); // Refresh the list after adding a new event
-      },
-      error: (error) => console.error('Error creating event:', error)
-    });
+  onSubmit(): void {
+    if (this.newEvent.name && this.newEvent.date) {
+      this.eventsService.addEvent(this.newEvent).subscribe(() => {
+        this.loadEvents();  // Refresh the list
+        this.newEvent = { name: '', date: '' }; // Reset form
+      });
+    }
   }
 }

@@ -1,18 +1,24 @@
 const express = require('express');
+const cors = require('cors'); // Import cors
 const sequelize = require('./config/database');
 const eventRoutes = require('./routes/eventRoutes');
 const Eureka = require('eureka-js-client').Eureka;
 require('dotenv').config();
 
 const app = express();
+
+// Enable CORS for all routes
+app.use(cors());
+
+// Other middleware
 app.use(express.json());
 
 // Eureka client configuration
 const client = new Eureka({
     instance: {
         app: 'event-service',
-        hostName: 'event-service', // Service name in docker-compose
-        ipAddr: 'event-service', // Use the IP address if needed
+        hostName: 'event-service',
+        ipAddr: 'event-service',
         port: {
             '$': process.env.PORT || 3002,
             '@enabled': true,

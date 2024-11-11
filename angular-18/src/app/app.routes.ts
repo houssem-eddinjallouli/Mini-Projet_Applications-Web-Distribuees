@@ -16,9 +16,10 @@ import { AnasuserComponent } from './user/anasuser/anasuser.component';
 import { NewsuserComponent } from './user/newsuser/newsuser.component';
 import { NewsadminComponent } from './admin/newsadmin/newsadmin.component';
 import { adminGuard, userGuard } from './services/guard/auth.guard';
-import { EventsadminComponent } from './admin/eventsadmin/eventsadmin.component';
 import { EventsuserComponent } from './user/eventsuser/eventsuser.component';
-import { ForumComponent } from './admin/anasadmin/forum.component';
+import { AnasadminComponent } from './admin/anasadmin/anasadmin.component';
+import { EventsadminComponent } from './admin/eventsadmin/eventsadmin.component';
+
 
 
 
@@ -38,7 +39,7 @@ export const routes: Routes = [
 
           { path: 'applicationstudent', component: ManefadminComponent },
 
-          { path: 'forum', component: ForumComponent },
+          { path: 'forum', component: AnasadminComponent },
 
           { path: 'news', component: NewsadminComponent },
 

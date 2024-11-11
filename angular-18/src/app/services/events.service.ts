@@ -1,24 +1,22 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventsService {
-
-  private baseUrl = 'http://localhost:3002/events';
+  private apiUrl = 'http://localhost:3002/events';
 
   constructor(private http: HttpClient) { }
 
-  // GET request to fetch all events
+  // Get all events
   getEvents(): Observable<any> {
-    return this.http.get<any>(this.baseUrl);
+    return this.http.get<any>(this.apiUrl);
   }
 
-  // POST request to create a new event
-  createEvent(eventData: { name: string; date: string }): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(this.baseUrl, eventData, { headers });
+  // Add a new event
+  addEvent(event: { name: string, date: string }): Observable<any> {
+    return this.http.post<any>(this.apiUrl, event);
   }
 }
