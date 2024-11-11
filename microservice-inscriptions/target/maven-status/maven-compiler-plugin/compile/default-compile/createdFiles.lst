@@ -1,0 +1,7 @@
+tn\espritclubs\microservice_inscriptions\services\IApplicationService.class
+tn\espritclubs\microservice_inscriptions\MicroserviceInscriptionsApplication.class
+tn\espritclubs\microservice_inscriptions\entities\StatusType.class
+tn\espritclubs\microservice_inscriptions\services\ApplicationServiceImpl.class
+tn\espritclubs\microservice_inscriptions\entities\ApplicationStudent.class
+tn\espritclubs\microservice_inscriptions\controllers\ApplicationRestController.class
+tn\espritclubs\microservice_inscriptions\repositories\ApplicationRepository.class
