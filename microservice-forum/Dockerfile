@@ -12,6 +12,6 @@ FROM openjdk:17-jdk-slim
 
 COPY --from=builder /app/target/*.jar /eureka.jar
 
-EXPOSE 8090
+EXPOSE 8094
 
 ENTRYPOINT ["java", "-jar", "/eureka.jar"]

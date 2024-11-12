@@ -19,6 +19,8 @@ import { adminGuard, userGuard } from './services/guard/auth.guard';
 import { EventsuserComponent } from './user/eventsuser/eventsuser.component';
 import { AnasadminComponent } from './admin/anasadmin/anasadmin.component';
 import { EventsadminComponent } from './admin/eventsadmin/eventsadmin.component';
+import { ManefmanefuserComponent } from './user/manefmanefuser/manefmanefuser.component';
+import { ManefmanefadminComponent } from './admin/manefmanefadmin/manefmanefadmin.component';
 
 
 
@@ -45,7 +47,7 @@ export const routes: Routes = [
 
           { path: 'events', component: EventsadminComponent },  
 
-        //   { path: 'paiement' , component:PaiementComponent},
+          { path: 'reser' , component:ManefmanefadminComponent},
         ]
       },
       { 
@@ -67,7 +69,7 @@ export const routes: Routes = [
 
           { path: 'events', component: EventsuserComponent }, 
 
-          //   { path: 'paiement' , component:PaiementComponent},
+          { path: 'reser' , component:ManefmanefuserComponent},
         ]
       },
       { path: '**' , component:ForbiddenComponent},

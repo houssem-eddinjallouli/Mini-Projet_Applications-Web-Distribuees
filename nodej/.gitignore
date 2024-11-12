@@ -1,0 +1,46 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dependency directories
+jspm_packages/
+bower_components/
+
+# Optional npm cache directory
+.npm
+
+# dotenv environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Optional REPL history
+.node_repl_history
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Optional coverage directory
+coverage/
+
+# Parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Mac and Linux generated files
+.DS_Store

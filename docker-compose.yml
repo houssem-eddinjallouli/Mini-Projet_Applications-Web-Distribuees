@@ -1,6 +1,6 @@
 version: '3'
 
-services:
+services: 
   discovery-server:
     build: ./eureka
     ports:
@@ -145,6 +145,63 @@ services:
     volumes:
       - forum-db-data:/app/Database/Data
 
+  mysqldb:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: houssemino
+    ports:
+      - "3307:3306"
+    volumes:
+      - db:/var/lib/mysql
+
+  microservice-reservation:
+    depends_on:
+      - mysqldb
+      - discovery-server
+    build: ./microservice-reservation
+    restart: on-failure
+    ports:
+      - "8095:8095"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8090/eureka/
+    networks:
+      - app-network
+    volumes:
+      - reservation-db-data:/app/Database/Data
+
+  microservice-spring:
+    depends_on:
+      - mysqldb
+    #build: ./gestion-station-ski
+    image: jalloulihoussemeddin/houssemeddinjallouli-5sae7-g1-ski-spring:1.0.0
+    restart: on-failure
+    ports:
+      - "8069:8069"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url": "jdbc:mysql://mysqldb:3306/houssemino?createDatabaseIfNotExist=true",
+        "spring.datasource.username": "root",
+        "spring.datasource.password": "root",
+        "spring.jpa.hibernate.ddl-auto": "update"}'
+    stdin_open: true
+    tty: true
+
+  node-js:
+    restart: on-failure
+    build: ./nodej
+    environment:
+      - DATABASE_URL=postgres://houssemino:houssemino@postgresql:5432/product_db
+      - EUREKA_SERVER=http://discovery-server:8090/eureka/
+    ports:
+      - "3003:3003"
+    networks:
+      - app-network
+    depends_on:
+      - postgresql
+      - discovery-server
+
   website-angular:
     build: ./angular-18
     ports:
@@ -159,7 +216,10 @@ networks:
     driver: bridge
 
 volumes:
+  db:
   quiz-db-data: 
+    driver: local
+  reservation-db-data:
     driver: local
   inscription-db-data: 
     driver: local
